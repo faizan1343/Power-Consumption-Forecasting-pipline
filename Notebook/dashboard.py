@@ -6,7 +6,7 @@ import plotly.express as px
 from PIL import Image
 import os
 
-# Define the directory relative to the script
+# Define the directory relative to the script (single definition)
 PICKLE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "files")
 
 @st.cache_data
@@ -14,9 +14,9 @@ def load_forecast_data():
     return pd.read_pickle(os.path.join(PICKLE_DIR, "forecast_results.pkl"))
 
 # Load data
-df = pd.read_pickle(os.path.join(PICKLE_DIR, 'volatility_dataset.pkl'))
-forecast_results = pd.read_pickle(os.path.join(PICKLE_DIR, 'forecast_results.pkl'))
-#streamlit run "e:/TIme series proj/Notebook/dashboard.py"
+df = pd.read_pickle(os.path.join(PICKLE_DIR, "volatility_dataset.pkl"))
+forecast_results = pd.read_pickle(os.path.join(PICKLE_DIR, "forecast_results.pkl"))
+
 # Set page configuration with a modern theme
 st.set_page_config(page_title="Power Consumption Forecasting Dashboard", layout="wide", initial_sidebar_state="expanded")
 
@@ -45,11 +45,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Load data
-PICKLE_DIR = r"E:\TIme series proj\files"  # Adjust path if needed
-df = pd.read_pickle(os.path.join(PICKLE_DIR, 'volatility_dataset.pkl'))
-forecast_results = pd.read_pickle(os.path.join(PICKLE_DIR, 'forecast_results.pkl'))
-
 # Simulate temperature data for AEP region states (hypothetical, replace with real data if available)
 aep_states = ['Ohio', 'West Virginia', 'Kentucky', 'Virginia', 'Indiana', 'Michigan', 'Tennessee']
 temp_data = pd.DataFrame({
@@ -57,7 +52,7 @@ temp_data = pd.DataFrame({
     'temperature': [15.5, 14.2, 16.0, 13.8, 14.5, 12.3, 17.1]  # Simulated avg temps in °C for April 2025
 })
 temp_data['code'] = temp_data['state'].map({'Ohio': 'OH', 'West Virginia': 'WV', 'Kentucky': 'KY', 
-                                          'Virginia': 'VA', 'Indiana': 'IN', 'Michigan': 'MI', 'Tennessee': 'TN'})
+                                            'Virginia': 'VA', 'Indiana': 'IN', 'Michigan': 'MI', 'Tennessee': 'TN'})
 
 # Title and description with a modern look
 st.title("Power Consumption Forecasting Dashboard")
@@ -161,9 +156,13 @@ with col4:
 
 # Final Summary
 st.header("Project Summary")
-with open(os.path.join(PICKLE_DIR, 'final_summary.txt'), 'r') as f:
-    summary = f.read()
-st.markdown(summary, unsafe_allow_html=True)
+summary_file = os.path.join(PICKLE_DIR, 'final_summary.txt')
+if os.path.exists(summary_file):
+    with open(summary_file, 'r') as f:
+        summary = f.read()
+    st.markdown(summary, unsafe_allow_html=True)
+else:
+    st.markdown("**Summary not available.** Please ensure `final_summary.txt` is in the `files` directory.", unsafe_allow_html=True)
 
 # Future Enhancements
 st.sidebar.header("Future Enhancements")
