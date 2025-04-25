@@ -1,0 +1,10 @@
+
+Final Summary:
+- Best Mean Model: Exponential Smoothing (AIC: 1385098, stabilized) is the top performer for mean prediction, 
+  with SARIMA (AIC: 1602426, residual std dev: 183.81) as a stable alternative. ARIMA (AIC: 1747740, 
+  residual std dev: 327.54) underperforms due to lack of seasonality.
+- Volatility Model: GARCH(1,1) with rescaling (/1000) provides volatility forecasts (1000-1500 MW), 
+  capturing daily volatility patterns, though persistence (beta[1] = 0.0178) could be improved.
+- Forecasts: The 168-hour forecasts (2018-08-03 to 2018-08-10) exhibit daily cycles, with SARIMA and 
+  ES outperforming ARIMA in capturing load variations, as seen in the visualization.
+- Limitation: No actual data beyond 2018-08-03 limits validation; results are based on in-sample fit.
