@@ -5,6 +5,14 @@ import plotly.graph_objects as go
 import plotly.express as px
 from PIL import Image
 import os
+
+
+@st.cache_data
+def load_forecast_data():
+    return pd.read_pickle(os.path.join("..", "files", "forecast_results.pkl"))
+
+df_forecast = load_forecast_data()
+# Rest of your plotting code
 #streamlit run "e:/TIme series proj/Notebook/dashboard.py"
 # Set page configuration with a modern theme
 st.set_page_config(page_title="Power Consumption Forecasting Dashboard", layout="wide", initial_sidebar_state="expanded")
