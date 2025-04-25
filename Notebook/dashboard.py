@@ -6,13 +6,13 @@ import plotly.express as px
 from PIL import Image
 import os
 
-
 @st.cache_data
 def load_forecast_data():
-    return pd.read_pickle(os.path.join("..", "files", "forecast_results.pkl"))
-
-df_forecast = load_forecast_data()
-# Rest of your plotting code
+    # Get the directory of the current script (dashboard.py)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Navigate to files/forecast_results.pkl
+    file_path = os.path.join(script_dir, "..", "files", "forecast_results.pkl")
+    return pd.read_pickle(file_path)
 #streamlit run "e:/TIme series proj/Notebook/dashboard.py"
 # Set page configuration with a modern theme
 st.set_page_config(page_title="Power Consumption Forecasting Dashboard", layout="wide", initial_sidebar_state="expanded")
